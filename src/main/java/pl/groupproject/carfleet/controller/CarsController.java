@@ -26,7 +26,7 @@ public class CarsController {
 
     @GetMapping("/cars")
     public String allCars(Model model) {
-        List<Car> cars = service.getAll();
+        List<CarsDto> cars = service.carList();
         model.addAttribute("carslist", cars);
         return "cars";
     }
