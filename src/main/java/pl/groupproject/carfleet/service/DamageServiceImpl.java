@@ -39,7 +39,6 @@ public class DamageServiceImpl implements DamageService {
         damageList.setDescription(damageList.getDescription());
         damageList.setDrivable(damageList.getDrivable());
         damageRepository.save(damageList);
-
     }
 
 }

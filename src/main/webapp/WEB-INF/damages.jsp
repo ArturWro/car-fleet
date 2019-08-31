@@ -16,40 +16,53 @@
 </head>
 
 <body>
-    <h1>Damages</h1>
+<h1>Damages</h1>
 
-    <form:form method="post" modelAttribute="damagesList">
+<form:form method="post" modelAttribute="damagesList">
 
-        <div class="container">
+    <div class="container">
 
-            <c:forEach items="${damagesList}" var="damage">
-                <table cellspacing="0" cellpadding="0" border="2" style="width: 25%;">
-                    <tr>
-                        <th>l.p</th>
-                        <th>Damage Type</th>
-                        <th>Description</th>
-                        <th>Drivable</th>
-                        <th>Car MOdel</th>
+        <c:forEach items="${damagesList}" var="damage">
+            <table cellspacing="0" cellpadding="0" border="2" style="width: 25%;">
+                <tr>
+                    <th>l.p</th>
+                    <th>Damage Type</th>
+                    <th>Description</th>
+                    <th>Drivable</th>
+                    <th>Car Model</th>
+                    <th>Car Vin</th>
+                    <th>Car Repair</th>
 
-                    </tr>
+                </tr>
 
-                    <tbody>
-                    <tr>
-                        <td>${damage.id}</td>
-                        <td>${damage.damageType}</td>
-                        <td>${damage.description}</td>
-                        <td>${damage.drivable}</td>
-                        <td>${damage.car.carModel}</td>
+                <tbody>
+                <tr>
+                    <td>${damage.id}</td>
+                    <td>${damage.damageType}</td>
+                    <td>${damage.description}</td>
+                    <td>${damage.drivable}</td>
+                    <td>${damage.car.carModel}</td>
+                    <td>${damage.car.vinNr}</td>
+                    <td>${damage.car.vinNr}</td>
+                    <td>
+                        <c:if test="${car.reservation==true}">
+                            <button name="msg" value=${car.id} type="submit" class="registerbtn">Zwróć</button>
+                        </c:if>
+                        <c:if test="${car.reservation==false}">
+                            <button name="msg" value=${car.id} type="submit" class="registerbtn">Zarezerwuj</button>
+                        </c:if>
+                    </td>
+                    </form>
 
-                    </tr>
-                    </tbody>
-                </table>
-            </c:forEach>
+                </tr>
+                </tbody>
+            </table>
+        </c:forEach>
 
-            <h4 class="text-center"><a href="${contextPath}/adddamage">Add new damage </a> </h4>
+        <h4 class="text-center"><a href="${contextPath}/adddamage">Add new damage </a></h4>
 
-        </div>
-    </form:form>
+    </div>
+</form:form>
 </body>
 </html>
 

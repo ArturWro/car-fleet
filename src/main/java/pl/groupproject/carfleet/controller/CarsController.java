@@ -15,6 +15,7 @@ import pl.groupproject.carfleet.model.Car;
 import pl.groupproject.carfleet.service.CarService;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -44,5 +45,13 @@ public class CarsController {
         return "redirect:/cars";
     }
 
+    @PostMapping("/cars")
+    public String reservation(HttpServletRequest request){
+        String parameter = request.getParameter("msg");
+        service.makeReservation(parameter);
+        System.out.println(parameter);
+
+        return "redirect:/cars";
+    }
 
 }
