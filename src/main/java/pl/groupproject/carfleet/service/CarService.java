@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.groupproject.carfleet.dto.CarInformationDto;
 import pl.groupproject.carfleet.dto.CarSelectDto;
+import pl.groupproject.carfleet.dto.CarsDto;
 import pl.groupproject.carfleet.model.Car;
 import pl.groupproject.carfleet.repository.CarRepository;
 
@@ -20,7 +21,8 @@ public class CarService {
     public void addCar(CarInformationDto car){
         Car carEnitity = Car.builder()
                 .id(car.getId())
-                .carModel((car.getCarModel()))
+                .carBrand(car.getCarBrand())
+                .carModel(car.getCarModel())
                 .initialMileage(car.getInitialMileage())
                 .finaleMileage(car.getFinaleMileage())
                 .vinNr(car.getVinNr())
@@ -28,9 +30,14 @@ public class CarService {
                 .build();
         carRepository.save(carEnitity);
     }
+    private CarsDto mupToDto(Car car){
+        return new CarsDto(car.getId(),car.getCarBrand(),
+                car.getCarModel(), car.getVinNr(), car.isReservation(), car.getCarUpdate());
+    }
 
-    public List<Car> getAll() {
-        return carRepository.findAll();
+
+    public List<CarsDto> getAll() {
+        return carRepository.findAll().stream().map(this::mupToDto).collect(Collectors.toList());
     }
 
     public List<CarSelectDto> getAllForSelect() {
@@ -39,6 +46,10 @@ public class CarService {
                 .collect(Collectors.toList());
     }
 
+//    public void updateCar(Car car){
+//        cars. // ???
+//    }
+
     public void makeReservation(String id){
         Optional<Car> byId = carRepository.findById(Long.valueOf(id));
         Car car = byId.get();
@@ -46,9 +57,16 @@ public class CarService {
         carRepository.save(car);
     }
 
-//    public void updateCar(Car car){
-//        cars. // ???
-//    }
 
-    // ogarnac sobie zapisywanie
+//    public void updateCar(String id, CarsDto carsDto){
+//        Optional<Car> byId = carRepository.findById(Long.valueOf(id));
+//        Car car = byId.get();
+//        car.setCarUpdate(car.getCarUpdate());
+//        carRepository.save(car);
+//    }
+//
+//
+//
+//    public void updateCar(CarsDto carForm) {
+//    }
 }

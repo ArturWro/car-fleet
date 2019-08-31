@@ -11,8 +11,10 @@ import lombok.*;
 public class CarInformationDto {
     private Long id;
     private String carModel;
+    private String carBrand;
     private String initialMileage;
     private String finaleMileage;
     private String vinNr;
     private int amountOfFuel;
+
 }

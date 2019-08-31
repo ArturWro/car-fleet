@@ -1,6 +1,5 @@
 package pl.groupproject.carfleet.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pl.groupproject.carfleet.dto.CarInformationDto;
@@ -25,12 +24,14 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
+    private String carBrand;
     private String carModel;
     private String initialMileage;
     private String finaleMileage;
     private String vinNr;
     private int amountOfFuel;
     private boolean reservation;
+    private String carUpdate;
 
     @ManyToMany(mappedBy = "cars")
     private List<Driver> drivers;
@@ -50,6 +51,7 @@ public class Car {
     public CarInformationDto carInformationDto(){
         return CarInformationDto.builder()
                 .id(id)
+                .carBrand(carBrand)
                 .carModel(carModel)
                 .initialMileage(initialMileage)
                 .finaleMileage(finaleMileage)
@@ -57,14 +59,15 @@ public class Car {
                 .amountOfFuel(amountOfFuel)
                 .build();
     }
-    
+
     //    @OneToMany(mappedBy = "cars")
 //    private List<Departure> departures;
     @ManyToOne
     @JoinColumn(name = "departures_id")
     private Departure departures;
 
-    public Car(String carModel, String initialMileage, String finaleMileage, String vinNr) {
+    public Car(String carBrand, String carModel, String initialMileage, String finaleMileage, String vinNr) {
+        this.carBrand = carBrand;
         this.carModel = carModel;
         this.initialMileage = initialMileage;
         this.finaleMileage = finaleMileage;
